@@ -1,19 +1,18 @@
 package main;
 
-import javax.swing.JPanel;
+import inputs.KeyBoardListener;
+import inputs.MyMouseListener;
+
+import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public class GameScreen extends JPanel {
 
     private Game game;
     private Dimension size;
 
+    private MyMouseListener myMouseListener;
+    private KeyBoardListener keyBoardListener;
 
     public GameScreen(Game game) {
 
@@ -21,6 +20,17 @@ public class GameScreen extends JPanel {
         setPanelSize();
 
     }
+    public void initInputs() {
+        myMouseListener= new MyMouseListener(game);
+        keyBoardListener= new KeyBoardListener();
+
+        addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseListener);
+        addKeyListener(keyBoardListener);
+
+        requestFocus();
+    }
+
 
     private void setPanelSize() {
         size = new Dimension(640,640);
