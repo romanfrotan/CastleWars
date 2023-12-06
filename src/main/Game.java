@@ -38,7 +38,7 @@ public class Game extends JFrame implements Runnable {
         setLocationRelativeTo(null);
 
         initClasses();
-
+        setResizable(false);
         add(gameScreen);
         pack();// needs to be added after adding game to jpanel!
         setVisible(true);
