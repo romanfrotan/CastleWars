@@ -7,7 +7,7 @@ import java.awt.*;
 public class MyButton {
 
     private String text;
-    private int x,y,width,height;
+    public int x,y,width,height,id;
 
     private Rectangle bounds;
     private boolean mouseOver,mousePressed;
@@ -20,12 +20,28 @@ public class MyButton {
         this.y=y;
         this.width=width;
         this.height=height;
+        this.id=-1;
+
+        initBounds();
+    }
+    public MyButton(String text,int x,int y, int width, int height,int id){
+
+        this.text=text;
+        this.x=x;
+        this.y=y;
+        this.width=width;
+        this.height=height;
+        this.id=id;
 
         initBounds();
     }
 
     private void initBounds(){
         this.bounds=new Rectangle(x,y,width,height);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void draw(Graphics g) {
@@ -77,6 +93,12 @@ public class MyButton {
         this.mouseOver=mouseOver;
     }
 
+    public boolean isMouseOver(){
+        return mouseOver;
+    }
+    public boolean isMousePressed(){
+        return mousePressed;
+    }
     public Rectangle getBounds(){
         return bounds;
     }

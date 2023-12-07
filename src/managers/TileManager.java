@@ -20,9 +20,10 @@ public class TileManager {
     }
 
     private void CreateTiles() {
-        tiles.add(GRASS=new Tile(getSprite(8,1)));
-        tiles.add(GRASS=new Tile(getSprite(0,6)));
-        tiles.add(GRASS=new Tile(getSprite(9,0)));
+        int id=0;
+        tiles.add(GRASS=new Tile(getSprite(8,1),id++,"Grass"));
+        tiles.add(GRASS=new Tile(getSprite(0,6),id++,"Water"));
+        tiles.add(GRASS=new Tile(getSprite(9,0),id++,"Road"));
 
     }
     //id=array index of sprite added to the tiles array.
@@ -33,6 +34,9 @@ public class TileManager {
     private void loadAtalas() {
 
        atlas = LoadSave.getSpriteAtlas();
+    }
+    public Tile getTile(int id){
+        return tiles.get(id);
     }
 
     private BufferedImage getSprite(int xcord, int ycord) {
