@@ -12,7 +12,7 @@ import static main.GameStates.SetGameState;
 
 public class BottomBar {
     private int x,y,width,height;
-    private MyButton bMenu;
+    private MyButton bMenu,bSave;
     private Playing playing;
 
     private Tile selectedTile;
@@ -38,6 +38,7 @@ public class BottomBar {
     }
     public void initButtons() {
         bMenu=new  MyButton("Menu",2,642,100,30);
+        bSave=new  MyButton("Save",2,674,100,30);
 
         int w=50;
         int h=50;
@@ -55,6 +56,7 @@ public class BottomBar {
     }
     private void drawButtons(Graphics g) {
         bMenu.draw(g);
+        bSave.draw(g);
         drawTileButtons(g);
         drawSelectedTile(g);
     }
@@ -92,7 +94,9 @@ public class BottomBar {
     public void mouseClicked(int x, int y) {
         if(bMenu.getBounds().contains(x,y)) {
             SetGameState(MENU);
-        }else {
+        }else if(bSave.getBounds().contains(x,y)) {
+            saveLevel();
+        } else {
             for(MyButton b: tileButtons) {
                 if(b.getBounds().contains(x,y)) {
                     selectedTile=playing.getTileManager().getTile(b.getId());
@@ -103,14 +107,20 @@ public class BottomBar {
         }
     }
 
+    private void saveLevel() {
+        playing.saveLevel();
+    }
+
     public void mouseMoved(int x, int y) {
         bMenu.setMouseOver(false);
+        bSave.setMouseOver(false);
         for (MyButton b : tileButtons)
             b.setMouseOver(false);
-
-        if (bMenu.getBounds().contains(x, y))
+        if (bMenu.getBounds().contains(x, y)) {
             bMenu.setMouseOver(true);
-        else {
+        } else if(bSave.getBounds().contains(x,y)) {
+            bSave.setMouseOver(true);
+        }else {
             for (MyButton b : tileButtons) {
                 if (b.getBounds().contains(x, y)) {
                     b.setMouseOver(true);
@@ -122,9 +132,11 @@ public class BottomBar {
     }
 
     public void mousePressed(int x, int y) {
-        if (bMenu.getBounds().contains(x, y))
+        if (bMenu.getBounds().contains(x, y)) {
             bMenu.setMousePressed(true);
-        else {
+        }else if(bSave.getBounds().contains(x,y)) {
+            bSave.setMousePressed(true);
+        }else {
             for (MyButton b : tileButtons) {
                 if (b.getBounds().contains(x, y)) {
                     b.setMousePressed(true);
@@ -136,8 +148,9 @@ public class BottomBar {
     }
     public void mouseReleased(int x, int y) {
         bMenu.resetBooleans();
-        for (MyButton b : tileButtons)
+        bSave.resetBooleans();
+        for (MyButton b : tileButtons) {
             b.resetBooleans();
-
+        }
     }
 }

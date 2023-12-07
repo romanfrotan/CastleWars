@@ -1,6 +1,7 @@
 package scenes;
 
 import helperMethods.LevelBuild;
+import helperMethods.LoadSave;
 import main.Game;
 import managers.TileManager;
 import objects.Tile;
@@ -24,6 +25,29 @@ public class Playing extends GameScene implements SceneMethods{
         lvl= LevelBuild.getLevelData();
         tileManager=new TileManager();
         bottomBar=new BottomBar(0,640,640,100,this);
+
+        //LoadSave.CreateFile();
+       //LoadSave.WriteToFile();
+        //LoadSave.ReadFromFile();
+
+        createDefaultLevel();
+        loadDefaultLevel();
+    }
+    public void saveLevel(){
+        LoadSave.SaveLevel("new_level",lvl);
+    }
+
+    private void loadDefaultLevel() {
+        lvl = LoadSave.GetLevelData("new_Level");
+    }
+
+    private void createDefaultLevel() {
+        int [] array=new int[400]; //20*20 (2d Array) = 400
+        for(int i= 0;i< array.length;i++){
+            array[i]=0; //0=Grass
+
+            LoadSave.CreateLevel("new_Level",array);
+        }
     }
 
     public TileManager getTileManager() {
