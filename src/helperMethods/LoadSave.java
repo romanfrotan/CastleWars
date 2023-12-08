@@ -88,7 +88,7 @@ public class LoadSave {
        if (levelFile.exists()) {
            ArrayList<Integer> list = ReadFromFile(levelFile);
            //create the helper method in helperMethods to turn 1d array to 2d array.
-           return Utilz.ArrayListConversion(list,20,20);
+           return Utilities.ArrayListConversion(list,20,20);
        } else {
            System.out.println("Save File- " + name + " is not found.");
            return null;
@@ -100,7 +100,7 @@ public class LoadSave {
        File levelFile = new File("res/" + name + ".txt");
 
        if(levelFile.exists()) {
-          WriteToFile(levelFile,Utilz.TwoDArraytoOneDArray(idArray));
+          WriteToFile(levelFile, Utilities.TwoDArraytoOneDArray(idArray));
        }else {
            System.out.println("File- "+name+"doest not exist");
        }

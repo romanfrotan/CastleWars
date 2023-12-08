@@ -2,7 +2,7 @@ package helperMethods;
 
 import java.util.ArrayList;
 
-public class Utilz {
+public class Utilities {
 
 
     public static int[][] ArrayListConversion(ArrayList<Integer> list,int ySize,int xSize){

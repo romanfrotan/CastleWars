@@ -7,7 +7,6 @@ import ui.ToolBar;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 public class Editing extends GameScene implements  SceneMethods  {
 
@@ -17,9 +16,6 @@ public class Editing extends GameScene implements  SceneMethods  {
     private Tile selectedTile;
     private boolean drawSelect;
     private ToolBar toolBar;
-    private int animationIndex;
-    private int tick;
-    private int animationSpeed=15;
 
 
     public Editing(Game game) {
@@ -31,6 +27,11 @@ public class Editing extends GameScene implements  SceneMethods  {
         lvl = LoadSave.GetLevelData("new_Level");
     }
 
+    public void update() {
+        updateTick();
+    }
+
+
     @Override
     public void render(Graphics g) {
         updateTick();
@@ -38,18 +39,6 @@ public class Editing extends GameScene implements  SceneMethods  {
         toolBar.draw(g);
         drawSelectedTile(g);
 
-    }
-
-    private void updateTick() {
-        tick++;
-
-        if(tick>=animationSpeed){
-            tick=0;
-            animationIndex++;
-            if(animationIndex>=4){
-                animationIndex=0;
-            }
-        }
     }
 
     private void drawLevel(Graphics g) {
@@ -64,17 +53,6 @@ public class Editing extends GameScene implements  SceneMethods  {
         }
     }
 
-    private boolean isAnimated(int id) {
-        return game.getTileManager().isSpriteAnimated(id);
-    }
-
-    private BufferedImage getSprite(int spriteId){
-        return game.getTileManager().getSprite(spriteId);
-    }
-
-    private BufferedImage getSprite(int spriteId,int animationIndex){
-        return game.getTileManager().getAnimatedSprite(spriteId,animationIndex);
-    }
 
 
     private void drawSelectedTile(Graphics g) {
