@@ -6,6 +6,7 @@ import objects.Tile;
 import ui.ToolBar;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Editing extends GameScene implements  SceneMethods  {
@@ -16,6 +17,9 @@ public class Editing extends GameScene implements  SceneMethods  {
     private Tile selectedTile;
     private boolean drawSelect;
     private ToolBar toolBar;
+    private int animationIndex;
+    private int tick;
+    private int animationSpeed=15;
 
 
     public Editing(Game game) {
@@ -29,21 +33,47 @@ public class Editing extends GameScene implements  SceneMethods  {
 
     @Override
     public void render(Graphics g) {
+        updateTick();
         drawLevel(g);
         toolBar.draw(g);
         drawSelectedTile(g);
 
     }
+
+    private void updateTick() {
+        tick++;
+
+        if(tick>=animationSpeed){
+            tick=0;
+            animationIndex++;
+            if(animationIndex>=4){
+                animationIndex=0;
+            }
+        }
+    }
+
     private void drawLevel(Graphics g) {
         for(int y= 0;y < lvl.length; y++){
             for(int x = 0;x < lvl[y].length; x++){
                 int id = lvl[y][x];
-                g.drawImage(getSprite(id),x*32,y*32,null);
+                if(isAnimated(id)){
+                    g.drawImage(getSprite(id,animationIndex),x*32,y*32,null);
+                } else
+                    g.drawImage(getSprite(id),x*32,y*32,null);
             }
         }
     }
+
+    private boolean isAnimated(int id) {
+        return game.getTileManager().isSpriteAnimated(id);
+    }
+
     private BufferedImage getSprite(int spriteId){
         return game.getTileManager().getSprite(spriteId);
+    }
+
+    private BufferedImage getSprite(int spriteId,int animationIndex){
+        return game.getTileManager().getAnimatedSprite(spriteId,animationIndex);
     }
 
 
@@ -119,6 +149,12 @@ public class Editing extends GameScene implements  SceneMethods  {
 
         } else {
             changeTile(x, y);
+        }
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_R){
+            toolBar.rotateSprite();;
         }
     }
 
