@@ -1,7 +1,5 @@
 package helperMethods;
 
-import scenes.Playing;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;

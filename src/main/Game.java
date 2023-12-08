@@ -1,5 +1,8 @@
 package main;
 
+import helperMethods.LoadSave;
+import managers.TileManager;
+import scenes.Editing;
 import scenes.Menu;
 import scenes.Playing;
 import scenes.Settings;
@@ -21,6 +24,8 @@ public class Game extends JFrame implements Runnable {
     private Menu menu;
     private Playing playing;
     private Settings settings;
+    private Editing editing;
+    private TileManager tileManager;
 
 
     public Game () {
@@ -29,6 +34,7 @@ public class Game extends JFrame implements Runnable {
         setLocationRelativeTo(null);
 
         initClasses();
+        createDefaultLevel();
         setResizable(false);
         add(gameScreen);
         pack();// needs to be added after adding game to jpanel!
@@ -36,12 +42,23 @@ public class Game extends JFrame implements Runnable {
 
     }
 
+    private void createDefaultLevel() {
+        int [] array=new int[400]; //20*20 (2d Array) = 400
+        for(int i= 0;i< array.length;i++){
+            array[i]=0; //0=Grass
+
+            LoadSave.CreateLevel("new_Level",array);
+        }
+    }
+
     private void initClasses() {
+        tileManager=new TileManager();
         render= new Render(this);
         gameScreen=new GameScreen(this);
         menu= new Menu(this);
         playing= new Playing(this);
         settings=new Settings(this);
+        editing=new Editing(this);
     }
 
 
@@ -123,4 +140,6 @@ public class Game extends JFrame implements Runnable {
     public Render getRender(){
         return render;
     }
+    public Editing getEditor(){return editing;}
+    public TileManager getTileManager(){return tileManager;}
 }
