@@ -1,12 +1,16 @@
 package managers;
 
-import enemies.Enemy;
+import enemies.*;
 import helperMethods.LoadSave;
+import objects.PathPoint;
 import scenes.Playing;
+
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import static helperMethods.Constants.Enemies.*;
 import static helperMethods.Constants.Tiles.*;
 import static helperMethods.Constants.Direction.*;
 
@@ -16,12 +20,19 @@ public class EnemyManager {
     private BufferedImage[] enemyImages;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private float speed = 0.5f;
+    private PathPoint start,end;
 
 
-    public EnemyManager(Playing playing) {
+    public EnemyManager(Playing playing, PathPoint start,PathPoint end) {
         this.playing = playing;
         enemyImages = new BufferedImage[4];
-        addEnemy(3 + 32, 9 * 32);
+        this.start=start;
+        this.end=end;
+        addEnemy(ORC);
+        addEnemy(BAT);
+        addEnemy(KNIGHT);
+        addEnemy(WOLF);
+
         loadEnemyImages();
 
     }
@@ -29,23 +40,24 @@ public class EnemyManager {
     private void loadEnemyImages() {
         //from our sprite_atlas in res folder, orc is at x=0 y=1.
         BufferedImage atlas = LoadSave.getSpriteAtlas();
-        enemyImages[0] = atlas.getSubimage(0 * 32, 1 * 32, 32, 32);
-        enemyImages[1] = atlas.getSubimage(1 * 32, 1 * 32, 32, 32);
-        enemyImages[2] = atlas.getSubimage(2 * 32, 1 * 32, 32, 32);
-        enemyImages[3] = atlas.getSubimage(3 * 32, 1 * 32, 32, 32);
+
+        for(int i =0;i<4;i++){
+            enemyImages[i] = atlas.getSubimage(i * 32, 32, 32, 32);
+        }
 
     }
 
     public void update() {
         for (Enemy enemy : enemies) {
-            //is next tile road (position,dir)
-            if (isNextTileRoad(enemy)) {
-                //move
-            }
+            updateEnemyMove(enemy);
         }
     }
 
-    public boolean isNextTileRoad(Enemy e) {
+    public void updateEnemyMove(Enemy e) {
+
+        if(e.getLastDirection()==-1){
+            setNewDirectionandMove(e);
+        }
 
         //tile at new possible position
         int newX = (int) (e.getX() + getSpeedAndWidth(e.getLastDirection()));
@@ -55,7 +67,7 @@ public class EnemyManager {
             e.move(speed, e.getLastDirection());
 
         } else if (isAtEnd(e)) {
-            //reached the end
+            System.out.println("Lives Lost");
 
         } else {
             setNewDirectionandMove(e);
@@ -63,8 +75,8 @@ public class EnemyManager {
         }
 
 
-        return false;
     }
+
 
     private void setNewDirectionandMove(Enemy e) {
         int dir = e.getLastDirection();
@@ -75,6 +87,10 @@ public class EnemyManager {
         int yCord = (int)(e.getY() / 32);
 
         fixEnemyOffsetTile(e,dir,xCord,yCord);
+
+        if(isAtEnd(e)){
+            return;
+        }
 
         if (dir == LEFT || dir == RIGHT) {
             int newY = (int) (e.getY() + getSpeedandHeight(UP));
@@ -110,7 +126,10 @@ public class EnemyManager {
     }
 
     private boolean isAtEnd(Enemy e) {
-    return false;
+        if(e.getX()== end.getxCord()*32)
+            if(e.getY()==end.getyCord()*32)
+                return true;
+        return false;
     }
 
     private int getTileType(int x, int y) {
@@ -146,14 +165,29 @@ public class EnemyManager {
 
 private void drawEnemy(Enemy enemy,Graphics g) {
 
-    g.drawImage(enemyImages[0],(int)enemy.getX(),(int)enemy.getY(),null);
+    g.drawImage(enemyImages[enemy.getEnemyType()],(int)enemy.getX(),(int)enemy.getY(),null);
 }
 
-public void addEnemy(int x, int y){
-    enemies.add(new Enemy(x,y,0,0));
+public void addEnemy(int enemyType){
 
+          int x = start.getxCord()*32;
+          int y = start.getyCord()*32;
+        switch (enemyType) {
+
+            case ORC:
+                enemies.add(new Orc(x,y,0));
+                break;
+            case BAT:
+                enemies.add(new Bat(x,y,0));
+                break;
+            case WOLF:
+                enemies.add(new Wolf(x,y,0));
+                break;
+            case KNIGHT:
+                enemies.add(new Knight(x,y,0));
+                break;
+
+        }
 }
-
-
 
 }

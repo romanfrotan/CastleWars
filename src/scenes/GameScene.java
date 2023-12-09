@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class GameScene {
     protected Game game;
-    protected int animationSpeed=15;
+    protected int animationSpeed=20;
     protected int tick;
     protected int animationIndex;
 

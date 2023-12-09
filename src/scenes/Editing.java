@@ -2,11 +2,15 @@ package scenes;
 
 import helperMethods.LoadSave;
 import main.Game;
+import objects.PathPoint;
 import objects.Tile;
 import ui.ToolBar;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import static helperMethods.Constants.Tiles.*;
 
 public class Editing extends GameScene implements  SceneMethods  {
 
@@ -16,15 +20,19 @@ public class Editing extends GameScene implements  SceneMethods  {
     private Tile selectedTile;
     private boolean drawSelect;
     private ToolBar toolBar;
+    private PathPoint start,end;
 
 
     public Editing(Game game) {
         super(game);
         loadDefaultLevel();
-        toolBar=new ToolBar(0,640,640,100,this);
+        toolBar=new ToolBar(0,640,640,160,this);
     }
     private void loadDefaultLevel() {
-        lvl = LoadSave.GetLevelData("new_Level");
+        lvl = LoadSave.getLevelData("new_Level");
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoint("new_Level");
+        start=points.get(0);
+        end=points.get(1);
     }
 
     public void update() {
@@ -38,7 +46,18 @@ public class Editing extends GameScene implements  SceneMethods  {
         drawLevel(g);
         toolBar.draw(g);
         drawSelectedTile(g);
+        drawPathPoints(g);
 
+
+    }
+
+    private void drawPathPoints(Graphics g) {
+        if(start !=null){
+            g.drawImage(toolBar.getPathStartImg(), start.getxCord()*32,start.getyCord()*32,32,32,null);
+        }
+        if(end != null){
+            g.drawImage(toolBar.getPathEndImg(), end.getxCord()*32,end.getyCord()*32,32,32,null);
+        }
     }
 
     private void drawLevel(Graphics g) {
@@ -61,7 +80,7 @@ public class Editing extends GameScene implements  SceneMethods  {
         }
     }
     public void saveLevel(){
-        LoadSave.SaveLevel("new_level",lvl);
+        LoadSave.SaveLevel("new_level",lvl,start,end);
         game.getPlaying().setLevel(lvl);
     }
 
@@ -71,17 +90,31 @@ public class Editing extends GameScene implements  SceneMethods  {
     }
     private void changeTile(int x, int y) {
         if (selectedTile !=null) {
-
             int tileX = x / 32;
             int tileY = y / 32;
 
-            //so we don't call this method everytime the mouse moves a pixle
-            if(lastTileX == tileX && lastTileY==tileY && lastTileId == selectedTile.getId())
-                return;
-            lastTileX= tileX;
-            lastTileY=tileY;
+            if (selectedTile.getId()>=0) {
+               //so we don't call this method everytime the mouse moves a pixle
+                if (lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId())
+                    return;
+                lastTileX = tileX;
+                lastTileY = tileY;
 
-            lvl[tileY][tileX] = selectedTile.getId();
+                lvl[tileY][tileX] = selectedTile.getId();
+            }else {
+                int id= lvl[tileY][tileX];
+                if ((game.getTileManager().getTile(id).getTileType()==ROAD_TILE)) {
+                    if(selectedTile.getId()==-1) {
+                        start=new PathPoint(tileX,tileY);
+                    }else{
+                        end=new PathPoint(tileX,tileY);
+                    }
+
+
+                }
+
+
+            }
 
         }
     }

@@ -1,11 +1,14 @@
 package scenes;
 
+import enemies.Orc;
 import helperMethods.LoadSave;
 import main.Game;
 import managers.EnemyManager;
+import objects.PathPoint;
 import ui.ActionBar;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Playing extends GameScene implements SceneMethods{
 
@@ -13,13 +16,14 @@ public class Playing extends GameScene implements SceneMethods{
     private ActionBar actionBar;
     private int mouseX,mouseY;
     private EnemyManager enemyManager;
+    private PathPoint start,end;
 
 
     public Playing(Game game) {
         super(game);
         loadDefaultLevel();
-        actionBar =new ActionBar(0,640,640,100,this);
-        enemyManager=new EnemyManager(this);
+        actionBar =new ActionBar(0,640,640,160,this);
+        enemyManager=new EnemyManager(this,start,end);
 
     }
 
@@ -29,12 +33,16 @@ public class Playing extends GameScene implements SceneMethods{
     }
 
     private void loadDefaultLevel() {
-        lvl = LoadSave.GetLevelData("new_Level");
+        lvl = LoadSave.getLevelData("new_Level");
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoint("new_Level");
+        start=points.get(0);
+        end=points.get(1);
     }
 
     @Override
     public void render(Graphics g) {
         drawLevel(g);
+        updateTick();
         actionBar.draw(g);
         enemyManager.draw(g);
     }
@@ -56,8 +64,8 @@ public class Playing extends GameScene implements SceneMethods{
     public void mouseClicked(int x, int y) {
         if (y >= 640) {
             actionBar.mouseClicked(x, y);
-        }else {
-            enemyManager.addEnemy(x,y);
+//        }else {
+//         enemyManager.addEnemy(x,y,);
         }
     }
     @Override
