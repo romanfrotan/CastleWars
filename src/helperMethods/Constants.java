@@ -27,7 +27,30 @@ public class Constants {
         public static final int KNIGHT=2;
         public static final int WOLF=3;
 
+        public static float GetSpeed(int enemyType) {
+            switch (enemyType) {
+                case KNIGHT:
+                    return .30f;
+                case BAT:
+                    return .70f;
+                case ORC:
+                    return .50f;
+                case  WOLF:
+                    return .80f;
+            }
+            return 0;
+        }
+
     }
+    public static class Towers {
+
+        public static final int CANNON=0;
+        public static final int ARCHER=1;
+        public static final int WIZARD=2;
+
+
+    }
+
 
 
 

@@ -4,6 +4,7 @@ import enemies.Orc;
 import helperMethods.LoadSave;
 import main.Game;
 import managers.EnemyManager;
+import managers.TowerManager;
 import objects.PathPoint;
 import ui.ActionBar;
 
@@ -17,6 +18,7 @@ public class Playing extends GameScene implements SceneMethods{
     private int mouseX,mouseY;
     private EnemyManager enemyManager;
     private PathPoint start,end;
+    private TowerManager towerManager;
 
 
     public Playing(Game game) {
@@ -24,12 +26,14 @@ public class Playing extends GameScene implements SceneMethods{
         loadDefaultLevel();
         actionBar =new ActionBar(0,640,640,160,this);
         enemyManager=new EnemyManager(this,start,end);
+        towerManager=new TowerManager(this);
 
     }
 
     public void update() {
         updateTick();
         enemyManager.update();
+        towerManager.update();
     }
 
     private void loadDefaultLevel() {
@@ -45,6 +49,7 @@ public class Playing extends GameScene implements SceneMethods{
         updateTick();
         actionBar.draw(g);
         enemyManager.draw(g);
+        towerManager.draw(g);
     }
 
     private void drawLevel(Graphics g) {
