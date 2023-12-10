@@ -19,8 +19,8 @@ public class EnemyManager {
     private Playing playing;
     private BufferedImage[] enemyImages;
     private ArrayList<Enemy> enemies = new ArrayList<>();
-    //private float speed = 0.5f;
     private PathPoint start,end;
+    private int hbBarWidth=20;
 
 
     public EnemyManager(Playing playing, PathPoint start,PathPoint end) {
@@ -160,10 +160,21 @@ public class EnemyManager {
 
     for (Enemy enemy:enemies) {
         drawEnemy(enemy, g);
+        drawHealthBar(enemy, g);
     }
 }
 
-private void drawEnemy(Enemy enemy,Graphics g) {
+    private void drawHealthBar(Enemy enemy, Graphics g) {
+        g.setColor(Color.red);
+        g.fillRect(((int)enemy.getX())+16-(getNewBarWidth(enemy)/2),(int)enemy.getY()-7,getNewBarWidth(enemy),3);
+
+    }
+    private int getNewBarWidth (Enemy e) {
+       return  (int)(hbBarWidth*e.getBarFloat());
+    }
+
+
+    private void drawEnemy(Enemy enemy,Graphics g) {
 
     g.drawImage(enemyImages[enemy.getEnemyType()],(int)enemy.getX(),(int)enemy.getY(),null);
 }

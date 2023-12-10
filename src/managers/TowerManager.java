@@ -1,31 +1,30 @@
 package managers;
 
+import helperMethods.Constants;
 import helperMethods.LoadSave;
 import objects.Tower;
 import scenes.Playing;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-import static helperMethods.Constants.Towers.ARCHER;
-import static helperMethods.Constants.Towers.CANNON;
+import static helperMethods.Constants.Towers.*;
+
 
 public class TowerManager {
-    private Tower tower;
     private Playing playing;
-    public BufferedImage[] towerImages;
+    private BufferedImage[] towerImages;
+    private int towerCount=0;
+    private ArrayList<Tower> towers= new ArrayList<>();
 
 
     public TowerManager(Playing playing) {
         this.playing = playing;
         loadTowerImages();
-        initTowers();
-    }
-
-    private void initTowers() {
-        tower= new Tower(3*32,6*32,0,ARCHER);
 
     }
+
 
     private void loadTowerImages() {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
@@ -42,8 +41,28 @@ public class TowerManager {
 
     public void draw (Graphics g) {
 
-        g.drawImage(towerImages[ARCHER],tower.getX(), tower.getY(), null);
+        for (Tower t: towers){
+            g.drawImage(towerImages[t.getTowerType()],t.getX(),t.getY(),null);
+        }
+
     }
 
+    public BufferedImage[] getTowerImages() {
+        return towerImages;
+    }
 
+    public void addTower(Tower selectedTower,int x, int y) {
+
+        towers.add(new Tower(x,y,towerCount++,selectedTower.getTowerType()));
+
+    }
+
+    public Tower getTowerAt(int x, int y) {
+        for (Tower t:towers) {
+            if (t.getX()==x)
+                if (t.getY()==y)
+                    return t;
+        }
+   return null;
+    }
 }

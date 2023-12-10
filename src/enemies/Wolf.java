@@ -7,5 +7,6 @@ import static helperMethods.Constants.Enemies.WOLF;
 
     public Wolf(float x, float y, int id) {
         super(x, y, id, WOLF);
+
     }
 }
