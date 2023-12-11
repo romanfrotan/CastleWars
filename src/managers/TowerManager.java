@@ -1,5 +1,6 @@
 package managers;
 
+import enemies.Enemy;
 import helperMethods.Constants;
 import helperMethods.LoadSave;
 import objects.Tower;
@@ -36,7 +37,38 @@ public class TowerManager {
 
     }
     public void update() {
+        for (Tower t: towers){
+            t.update();
 
+            attackEnemyInRange(t);
+        }
+
+    }
+
+    private void attackEnemyInRange(Tower t) {
+
+            for(Enemy e :playing.getEnemyManager().getEnemies()){
+                if(e.isAlive()){
+                if(isEnemyInRange(t,e)) {
+                    if (t.isCooldownOVer()) {
+                        playing.shoot(t, e);
+                        t.resetCooldown();
+                    }
+                }else {
+                    
+                }
+            }
+        }
+    }
+
+    private boolean isEnemyInRange(Tower t, Enemy e) {
+
+        int range = helperMethods.Utilities.getHypoDistance(t.getX(),t.getY(),e.getX(),e.getY());
+
+        if (range < t.getRange()) {
+            return true;
+        }
+      return false;
     }
 
     public void draw (Graphics g) {

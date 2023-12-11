@@ -1,9 +1,10 @@
 package scenes;
 
-import enemies.Orc;
+import enemies.Enemy;
 import helperMethods.LoadSave;
 import main.Game;
 import managers.EnemyManager;
+import managers.ProjectileManager;
 import managers.TowerManager;
 import objects.PathPoint;
 import objects.Tower;
@@ -25,6 +26,7 @@ public class Playing extends GameScene implements SceneMethods{
     private PathPoint start,end;
     private TowerManager towerManager;
     private Tower selectedTower;
+    private ProjectileManager projectileManager;
 
     public Playing(Game game) {
         super(game);
@@ -32,6 +34,7 @@ public class Playing extends GameScene implements SceneMethods{
         actionBar =new ActionBar(0,640,640,160,this);
         enemyManager=new EnemyManager(this,start,end);
         towerManager=new TowerManager(this);
+        projectileManager= new ProjectileManager(this);
 
     }
 
@@ -39,6 +42,8 @@ public class Playing extends GameScene implements SceneMethods{
         updateTick();
         enemyManager.update();
         towerManager.update();
+        projectileManager.update();
+
     }
 
     public void setSelectedTower(Tower selectedTower) {
@@ -61,6 +66,7 @@ public class Playing extends GameScene implements SceneMethods{
         towerManager.draw(g);
         drawSelectedTower(g);
         drawHighlight(g);
+        projectileManager.draw(g);
     }
 
     private void drawHighlight(Graphics g) {
@@ -143,6 +149,9 @@ public class Playing extends GameScene implements SceneMethods{
     @Override
     public void mouseDragged(int x, int y) {
     }
+    public void shoot(Tower t, Enemy e) {
+        projectileManager.newProjectile(t,e);
+    }
     public void setLevel(int[][] level) {
         this.lvl=lvl;
     }
@@ -171,4 +180,10 @@ public class Playing extends GameScene implements SceneMethods{
             selectedTower= null;
         }
     }
+
+    public EnemyManager getEnemyManager() {
+        return enemyManager;
+    }
+
+
 }

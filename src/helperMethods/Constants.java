@@ -1,6 +1,8 @@
 package helperMethods;
 
 
+
+
 public class Constants {
 
     public static class Direction {
@@ -8,24 +10,24 @@ public class Constants {
         public static final int LEFT = 0;
         public static final int UP = 1;
         public static final int RIGHT = 2;
-        public static final int DOWN= 3;
+        public static final int DOWN = 3;
 
     }
 
     public static class Tiles {
 
-        public static final int WATER_TILE=0;
-        public static final int GRASS_TILE=1;
-        public static final int ROAD_TILE=2;
+        public static final int WATER_TILE = 0;
+        public static final int GRASS_TILE = 1;
+        public static final int ROAD_TILE = 2;
 
     }
 
     public static class Enemies {
 
-        public static final int ORC=0;
-        public static final int BAT=1;
-        public static final int KNIGHT=2;
-        public static final int WOLF=3;
+        public static final int ORC = 0;
+        public static final int BAT = 1;
+        public static final int KNIGHT = 2;
+        public static final int WOLF = 3;
 
         public static float GetSpeed(int enemyType) {
             switch (enemyType) {
@@ -35,7 +37,7 @@ public class Constants {
                     return .70f;
                 case ORC:
                     return .50f;
-                case  WOLF:
+                case WOLF:
                     return .80f;
             }
             return 0;
@@ -49,12 +51,12 @@ public class Constants {
                     return 55;
                 case ORC:
                     return 150;
-                case  WOLF:
+                case WOLF:
                     return 90;
             }
             return 0;
         }
-        }
+    }
 
     public static class Towers {
 
@@ -74,14 +76,14 @@ public class Constants {
             return "";
         }
 
-        public static float getDamage(int towerType) {
+        public static int getDamage(int towerType) {
             switch (towerType) {
                 case ARCHER:
-                    return 20.f;
+                    return 4;
                 case WIZARD:
-                    return 7.0f;
+                    return 8;
                 case CANNON:
-                    return 40.0f;
+                    return 14;
             }
             return 0;
         }
@@ -111,5 +113,26 @@ public class Constants {
         }
 
     }
+
+    public static class Projectiles {
+        public static final int ARROW = 0;
+        public static final int BOMB = 2;
+        public static final int CHAINS = 1;
+
+        public static float getSpeed(int type) {
+
+            switch (type) {
+                case CHAINS:
+                    return 2f;
+                case ARROW:
+                    return 3f;
+                case BOMB:
+                    return 1f;
+            }
+            return 0f;
+        }
+
+    }
+
 
 }

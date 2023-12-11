@@ -49,7 +49,9 @@ public class EnemyManager {
 
     public void update() {
         for (Enemy enemy : enemies) {
-            updateEnemyMove(enemy);
+            if(enemy.isAlive()) {
+                updateEnemyMove(enemy);
+            }
         }
     }
 
@@ -159,8 +161,10 @@ public class EnemyManager {
     public void draw(Graphics g) {
 
     for (Enemy enemy:enemies) {
-        drawEnemy(enemy, g);
-        drawHealthBar(enemy, g);
+        if (enemy.isAlive()) {
+            drawEnemy(enemy, g);
+            drawHealthBar(enemy, g);
+        }
     }
 }
 
@@ -179,7 +183,8 @@ public class EnemyManager {
     g.drawImage(enemyImages[enemy.getEnemyType()],(int)enemy.getX(),(int)enemy.getY(),null);
 }
 
-public void addEnemy(int enemyType){
+
+    public void addEnemy(int enemyType){
 
           int x = start.getxCord()*32;
           int y = start.getyCord()*32;
@@ -201,4 +206,7 @@ public void addEnemy(int enemyType){
         }
 }
 
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
 }
