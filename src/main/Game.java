@@ -5,7 +5,6 @@ import managers.TileManager;
 import scenes.Editing;
 import scenes.Menu;
 import scenes.Playing;
-import scenes.Settings;
 
 import javax.swing.*;
 
@@ -23,7 +22,6 @@ public class Game extends JFrame implements Runnable {
     private Render render;
     private Menu menu;
     private Playing playing;
-    private Settings settings;
     private Editing editing;
     private TileManager tileManager;
 
@@ -57,7 +55,6 @@ public class Game extends JFrame implements Runnable {
         gameScreen=new GameScreen(this);
         menu= new Menu(this);
         playing= new Playing(this);
-        settings=new Settings(this);
         editing=new Editing(this);
     }
 
@@ -86,8 +83,6 @@ public class Game extends JFrame implements Runnable {
                 break;
             case PLAYING:
                 playing.update();
-                break;
-            case SETTINGS:
                 break;
         }
     }
@@ -145,9 +140,6 @@ public class Game extends JFrame implements Runnable {
     }
     public Playing getPlaying() {
         return playing;
-    }
-    public Settings getSettings() {
-        return settings;
     }
     public Render getRender(){
         return render;

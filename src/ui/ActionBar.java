@@ -27,8 +27,16 @@ public class ActionBar extends Bar {
         g.setColor(new Color(94, 54, 126));
         g.fillRect(x,y,width,height);
         drawButtons(g);
-
+        drawLives(g);
         drawDisplayedTower(g);
+    }
+
+    private void drawLives(Graphics g) {
+        int livesLeft=playing.getEnemyManager().getPlayerLives()-1;
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g.drawString("Lives Left: "+livesLeft,300,670);
+
     }
 
     private void drawDisplayedTower(Graphics g) {

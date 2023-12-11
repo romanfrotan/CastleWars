@@ -5,16 +5,14 @@ import helperMethods.LoadSave;
 import objects.PathPoint;
 import scenes.Playing;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static helperMethods.Constants.Enemies.*;
-import static helperMethods.Constants.Tiles.*;
 import static helperMethods.Constants.Direction.*;
-import static main.GameStates.*;
+import static helperMethods.Constants.Enemies.*;
+import static helperMethods.Constants.Tiles.ROAD_TILE;
 
 public class EnemyManager {
 
@@ -76,12 +74,12 @@ public class EnemyManager {
 
         } else if (isAtEnd(e)) {
             e.kill();
-            System.out.println("a life is lost!");
+
             playerLives--;
             System.out.println(playerLives);
             if(playerLives<=0){
                 playing.getWaveManager().setWaves();
-                JOptionPane.showMessageDialog(null, "GameOver!:out of lives, please relaunch game.");
+                JOptionPane.showMessageDialog(null, "GameOver!, please relaunch game.");
                 System.exit(-1);
 
             }

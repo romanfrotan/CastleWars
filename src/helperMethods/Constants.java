@@ -67,11 +67,11 @@ public class Constants {
         public static String getInfo(int towerType) {
             switch (towerType) {
                 case ARCHER:
-                    return "A fierce sharpshooter";
+                    return "";
                 case WIZARD:
-                    return "A mystical Wizard";
+                    return "";
                 case CANNON:
-                    return "A mighty Cannon!";
+                    return "";
             }
             return "";
         }

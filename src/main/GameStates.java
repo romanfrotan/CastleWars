@@ -4,8 +4,8 @@ public enum GameStates {
 
     PLAYING,
     MENU,
-    EDIT,
-    SETTINGS;
+    EDIT;
+
 
 
     public static GameStates gameState = MENU;
