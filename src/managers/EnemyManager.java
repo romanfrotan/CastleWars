@@ -6,6 +6,7 @@ import objects.PathPoint;
 import scenes.Playing;
 
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import static helperMethods.Constants.Enemies.*;
 import static helperMethods.Constants.Tiles.*;
 import static helperMethods.Constants.Direction.*;
+import static main.GameStates.*;
 
 public class EnemyManager {
 
@@ -21,17 +23,18 @@ public class EnemyManager {
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private PathPoint start,end;
     private int hbBarWidth=20;
+    private int playerLives=4;
 
 
-    public EnemyManager(Playing playing, PathPoint start,PathPoint end) {
+    public int getPlayerLives() {
+        return playerLives;
+    }
+
+    public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
         enemyImages = new BufferedImage[4];
         this.start=start;
         this.end=end;
-        addEnemy(ORC);
-        addEnemy(BAT);
-        addEnemy(KNIGHT);
-        addEnemy(WOLF);
 
         loadEnemyImages();
 
@@ -48,12 +51,15 @@ public class EnemyManager {
     }
 
     public void update() {
+
+
         for (Enemy enemy : enemies) {
             if(enemy.isAlive()) {
                 updateEnemyMove(enemy);
             }
         }
     }
+
 
     public void updateEnemyMove(Enemy e) {
 
@@ -69,7 +75,16 @@ public class EnemyManager {
             e.move(GetSpeed(e.getEnemyType()), e.getLastDirection());
 
         } else if (isAtEnd(e)) {
-            System.out.println("Lives Lost");
+            e.kill();
+            System.out.println("a life is lost!");
+            playerLives--;
+            System.out.println(playerLives);
+            if(playerLives<=0){
+                playing.getWaveManager().setWaves();
+                JOptionPane.showMessageDialog(null, "GameOver!:out of lives, please relaunch game.");
+                System.exit(-1);
+
+            }
 
         } else {
             setNewDirectionandMove(e);
@@ -208,5 +223,9 @@ public class EnemyManager {
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void spawnEnemy(int nextEnemy) {
+        addEnemy(nextEnemy);
     }
 }

@@ -6,6 +6,7 @@ import main.Game;
 import managers.EnemyManager;
 import managers.ProjectileManager;
 import managers.TowerManager;
+import managers.WaveManager;
 import objects.PathPoint;
 import objects.Tower;
 import ui.ActionBar;
@@ -27,6 +28,8 @@ public class Playing extends GameScene implements SceneMethods{
     private TowerManager towerManager;
     private Tower selectedTower;
     private ProjectileManager projectileManager;
+    private WaveManager waveManager;
+
 
     public Playing(Game game) {
         super(game);
@@ -35,15 +38,57 @@ public class Playing extends GameScene implements SceneMethods{
         enemyManager=new EnemyManager(this,start,end);
         towerManager=new TowerManager(this);
         projectileManager= new ProjectileManager(this);
+        waveManager=new WaveManager(this);
 
     }
 
+
     public void update() {
         updateTick();
+        waveManager.update();
+
+        if(isTimeForNewEnemy()){
+            spawnEnemy();
+        }
+
+        if(isAllEnemyDead()){
+            if(isMoreWaves()){
+                waveManager.startTimer();
+                if(isWaveTimerOver()){
+                    waveManager.increaseWaveIndex();
+                    enemyManager.getEnemies().clear();
+                    waveManager.resetEnemyIndex();
+                }
+
+            }
+        }
+
+
         enemyManager.update();
         towerManager.update();
         projectileManager.update();
 
+    }
+
+    private boolean isWaveTimerOver() {
+        return waveManager.isWaveTimerOver();
+    }
+
+    private boolean isMoreWaves() {
+        return waveManager.isMoreWaves();
+    }
+
+    private boolean isAllEnemyDead() {
+
+        if(waveManager.isMoreEnemies()){
+            return false;
+        }
+        for (Enemy e: enemyManager.getEnemies()){
+            if(e.isAlive()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void setSelectedTower(Tower selectedTower) {
@@ -181,9 +226,29 @@ public class Playing extends GameScene implements SceneMethods{
         }
     }
 
+    private void spawnEnemy() {
+        enemyManager.spawnEnemy(waveManager.getNextEnemy());
+
+    }
+
+    private boolean isTimeForNewEnemy() {
+        if(waveManager.isTimeForNewEnemy()) {
+            if (waveManager.isMoreEnemies())
+                return true;
+
+        }
+        return false;
+    }
+
+
     public EnemyManager getEnemyManager() {
         return enemyManager;
     }
+
+    public WaveManager getWaveManager() {
+        return waveManager;
+    }
+
 
 
 }
