@@ -16,22 +16,6 @@ import objects.PathPoint;
 public class LoadSave {
 
 
-    public static BufferedImage getTileAtlas() {
-        BufferedImage img = null;
-        InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("tiles.png");
-
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
-
-    }
-
-
-
-
     public static BufferedImage getSpriteAtlas() {
         BufferedImage img = null;
         InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("sprites.png");
@@ -42,17 +26,6 @@ public class LoadSave {
             e.printStackTrace();
         }
         return img;
-    }
-
-    public static void CreateFile() {
-        File txtFile = new File("res/testTextFile.txt");
-
-        try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static void CreateLevel(String name, int[] idArr) {

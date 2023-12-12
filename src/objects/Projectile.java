@@ -35,9 +35,6 @@ public class Projectile {
         return position;
     }
 
-    public void setPosition(Point2D.Float position) {
-        this.position = position;
-    }
 
     public int getId() {
         return id;
@@ -49,10 +46,6 @@ public class Projectile {
 
     public int getProjectileType() {
         return projectileType;
-    }
-
-    public void setProjectileType(int projectileType) {
-        this.projectileType = projectileType;
     }
 
     public boolean isActive() {

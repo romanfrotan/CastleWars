@@ -20,9 +20,6 @@ public class WaveManager {
     private boolean waveTickTimerOver;
 
 
-
-
-
     public WaveManager(Playing playing) {
         this.playing=playing;
         createWaves();

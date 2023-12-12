@@ -5,7 +5,6 @@ import ui.MyButton;
 
 import java.awt.*;
 
-import static java.awt.SystemColor.menu;
 import static main.GameStates.*;
 
 public class Menu extends GameScene implements SceneMethods{

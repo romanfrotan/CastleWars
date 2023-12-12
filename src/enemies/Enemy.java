@@ -86,13 +86,6 @@ public abstract class Enemy {
         return bounds;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public int getID() {
-        return ID;
-    }
 
     public int getEnemyType() {
         return enemyType;
@@ -106,7 +99,6 @@ public abstract class Enemy {
         return alive;
 
     }
-
 
     public void kill() {
         alive=false;

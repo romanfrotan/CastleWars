@@ -60,29 +60,22 @@ public class TileManager {
         tiles.add(WATER = new Tile(getAnimatedSprites(0, 0), id++, WATER_TILE));
         roadsStraight.add(ROAD_LR = new Tile(getSprite(8, 0), id++, ROAD_TILE));
         roadsStraight.add(ROAD_TB = new Tile(ImageFix.getRotatedImg(getSprite(8, 0), 90), id++, ROAD_TILE));
-
         roadsCorner.add(ROAD_B_TO_R = new Tile(getSprite(7, 0), id++, ROAD_TILE));
         roadsCorner.add(ROAD_L_TO_B = new Tile(ImageFix.getRotatedImg(getSprite(7, 0), 90), id++, ROAD_TILE));
         roadsCorner.add(ROAD_L_TO_T = new Tile(ImageFix.getRotatedImg(getSprite(7, 0), 180), id++, ROAD_TILE));
         roadsCorner.add(ROAD_T_TO_R = new Tile(ImageFix.getRotatedImg(getSprite(7, 0), 270), id++, ROAD_TILE));
-
         watersCorner.add(BL_WATER_CORNER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(5,0),0), id++, WATER_TILE));
         watersCorner.add(TL_WATER_CORNER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(5,0),90), id++, WATER_TILE));
         watersCorner.add(TR_WATER_CORNER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(5,0),180), id++, WATER_TILE));
         watersCorner.add(BR_WATER_CORNER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(5,0),270), id++, WATER_TILE));
-
-
-
         watersBeach.add(T_WATER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(6,0),0), id++,WATER_TILE));
         watersBeach.add(R_WATER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(6,0),90), id++, WATER_TILE));
         watersBeach.add(B_WATER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(6,0),180), id++,WATER_TILE));
         watersBeach.add(L_WATER = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(6,0),270), id++,WATER_TILE));
-
         watersIsland.add(TL_ISLE = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(4,0),0), id++, WATER_TILE));
         watersIsland.add(TR_ISLE = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(4,0),90), id++, WATER_TILE));
         watersIsland.add(BR_ISLE = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(4,0),180), id++, WATER_TILE));
         watersIsland.add(BL_ISLE = new Tile(ImageFix.getBuildRotateImg(getAnimatedSprites(0, 0),getSprite(4,0),270), id++, WATER_TILE));
-
         tiles.addAll(roadsStraight);
         tiles.addAll(roadsCorner);
         tiles.addAll(watersCorner);
@@ -90,9 +83,6 @@ public class TileManager {
         tiles.addAll(watersIsland);
     }
 
-    private BufferedImage[] getImgs(int firstX, int firstY, int secondX, int secondY) {
-        return new BufferedImage[] { getSprite(firstX, firstY), getSprite(secondX, secondY) };
-    }
 
     private void loadAtalas() {
         atlas = LoadSave.getSpriteAtlas();

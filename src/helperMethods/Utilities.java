@@ -37,6 +37,4 @@ public class Utilities {
         return (int)Math.hypot(xDiff,yDiff);
     }
 
-
-
 }

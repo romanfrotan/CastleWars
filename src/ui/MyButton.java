@@ -1,8 +1,5 @@
 package ui;
 
-import main.Render;
-import objects.Tower;
-
 import java.awt.*;
 
 public class MyButton {

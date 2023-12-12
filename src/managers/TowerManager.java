@@ -1,7 +1,6 @@
 package managers;
 
 import enemies.Enemy;
-import helperMethods.Constants;
 import helperMethods.LoadSave;
 import objects.Tower;
 import scenes.Playing;
@@ -9,8 +8,6 @@ import scenes.Playing;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import static helperMethods.Constants.Towers.*;
 
 
 public class TowerManager {

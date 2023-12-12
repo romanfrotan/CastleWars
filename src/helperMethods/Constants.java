@@ -1,8 +1,6 @@
 package helperMethods;
 
 
-
-
 public class Constants {
 
     public static class Direction {
