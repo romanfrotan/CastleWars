@@ -45,41 +45,41 @@ public class Constants {
         public static int GetStartHealth(int enemyType) {
             switch (enemyType) {
                 case KNIGHT:
-                    return 230;
+                    return 300;
                 case GHOST:
-                    return 140;
+                    return 120;
                 case SKELETON:
-                    return 150;
+                    return 245;
                 case GOBLIN:
-                    return 90;
+                    return 230;
             }
             return 0;
         }
     }
 
-    public static class Towers {
+    public static class Friends {
 
         public static final int ROUGE = 1;
         public static final int ARCHER = 2;
-        public static final int WIZARD = 0;
+        public static final int MAGE = 0;
 
-        public static String getInfo(int towerType) {
-            switch (towerType) {
+        public static String getInfo(int friend) {
+            switch (friend) {
                 case ARCHER:
-                    return "";
-                case WIZARD:
-                    return "";
+                    return "Archer";
+                case MAGE:
+                    return "Mage";
                 case ROUGE:
-                    return "";
+                    return "Rouge";
             }
             return "";
         }
 
-        public static int getDamage(int towerType) {
-            switch (towerType) {
+        public static int getDamage(int friend) {
+            switch (friend) {
                 case ARCHER:
                     return 12;
-                case WIZARD:
+                case MAGE:
                     return 24;
                 case ROUGE:
                     return 15;
@@ -87,11 +87,11 @@ public class Constants {
             return 0;
         }
 
-        public static float getRange(int towerType) {
-            switch (towerType) {
+        public static float getRange(int friend) {
+            switch (friend) {
                 case ARCHER:
                     return 80;
-                case WIZARD:
+                case MAGE:
                     return 120;
                 case ROUGE:
                     return 100;
@@ -99,11 +99,11 @@ public class Constants {
             return 0;
         }
 
-        public static float getCooldown(int towerType) {
-            switch (towerType) {
+        public static float getCooldown(int friend) {
+            switch (friend) {
                 case ARCHER:
                     return 13;
-                case WIZARD:
+                case MAGE:
                     return 28;
                 case ROUGE:
                     return 18;

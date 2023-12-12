@@ -5,10 +5,10 @@ import helperMethods.LoadSave;
 import main.Game;
 import managers.EnemyManager;
 import managers.ProjectileManager;
-import managers.TowerManager;
+import managers.FriendManager;
 import managers.WaveManager;
 import objects.PathPoint;
-import objects.Tower;
+import objects.Friendly;
 import ui.ActionBar;
 
 import java.awt.*;
@@ -25,8 +25,8 @@ public class Playing extends GameScene implements SceneMethods{
     private int mouseX,mouseY;
     private EnemyManager enemyManager;
     private PathPoint start,end;
-    private TowerManager towerManager;
-    private Tower selectedTower;
+    private FriendManager friendManager;
+    private Friendly selectedFriendly;
     private ProjectileManager projectileManager;
     private WaveManager waveManager;
 
@@ -36,7 +36,7 @@ public class Playing extends GameScene implements SceneMethods{
         loadDefaultLevel();
         actionBar =new ActionBar(0,640,640,160,this);
         enemyManager=new EnemyManager(this,start,end);
-        towerManager=new TowerManager(this);
+        friendManager =new FriendManager(this);
         projectileManager= new ProjectileManager(this);
         waveManager=new WaveManager(this);
 
@@ -65,7 +65,7 @@ public class Playing extends GameScene implements SceneMethods{
 
 
         enemyManager.update();
-        towerManager.update();
+        friendManager.update();
         projectileManager.update();
 
     }
@@ -91,8 +91,8 @@ public class Playing extends GameScene implements SceneMethods{
         return true;
     }
 
-    public void setSelectedTower(Tower selectedTower) {
-        this.selectedTower = selectedTower;
+    public void setSelectedFriend(Friendly selectedFriendly) {
+        this.selectedFriendly = selectedFriendly;
     }
 
     private void loadDefaultLevel() {
@@ -108,8 +108,8 @@ public class Playing extends GameScene implements SceneMethods{
         updateTick();
         actionBar.draw(g);
         enemyManager.draw(g);
-        towerManager.draw(g);
-        drawSelectedTower(g);
+        friendManager.draw(g);
+        drawSelectedFriend(g);
         drawHighlight(g);
         projectileManager.draw(g);
     }
@@ -119,9 +119,9 @@ public class Playing extends GameScene implements SceneMethods{
         g.drawRect(mouseX,mouseY,32,32);
     }
 
-    private void drawSelectedTower(Graphics g) {
-        if(selectedTower!=null) {
-            g.drawImage(towerManager.getTowerImages()[selectedTower.getTowerType()], mouseX, mouseY, null);
+    private void drawSelectedFriend(Graphics g) {
+        if(selectedFriendly !=null) {
+            g.drawImage(friendManager.getFriendImages()[selectedFriendly.getFriendType()], mouseX, mouseY, null);
         }
     }
 
@@ -143,32 +143,32 @@ public class Playing extends GameScene implements SceneMethods{
         if (y >= 640) {
             actionBar.mouseClicked(x, y);
         }else {
-            if (selectedTower !=null){
+            if (selectedFriendly !=null){
                 if (isTileGrass(mouseX,mouseY)) {
-                    if(getTowerAt(mouseX,mouseY)==null) {
-                        //placing the tower, we will pass mouse postion too.
-                        towerManager.addTower(selectedTower, mouseX, mouseY);
-                        selectedTower = null;
+                    if(getFriendAt(mouseX,mouseY)==null) {
+                        //placing the friendly, we will pass mouse postion too.
+                        friendManager.addFriend(selectedFriendly, mouseX, mouseY);
+                        selectedFriendly = null;
                     }
                 }
             }else {
-                Tower t = getTowerAt(mouseX,mouseY);
+                Friendly t = getFriendAt(mouseX,mouseY);
 
-                actionBar.displayTower(t);
+                actionBar.displayFriend(t);
 
                 }
         }
     }
 
-    private Tower getTowerAt(int x, int y) {
-        return towerManager.getTowerAt(x,y);
+    private Friendly getFriendAt(int x, int y) {
+        return friendManager.getFriendAt(x,y);
     }
 
     private boolean isTileGrass(int x, int y) {
         int id = lvl[y/32][x/32];
         int tileType= game.getTileManager().getTile(id).getTileType();
 
-        //only set tower on grass tiles
+        //only set friend on grass tiles
         return tileType== GRASS_TILE;
     }
 
@@ -194,7 +194,7 @@ public class Playing extends GameScene implements SceneMethods{
     @Override
     public void mouseDragged(int x, int y) {
     }
-    public void shoot(Tower t, Enemy e) {
+    public void shoot(Friendly t, Enemy e) {
         projectileManager.newProjectile(t,e);
     }
     public void setLevel(int[][] level) {
@@ -216,13 +216,13 @@ public class Playing extends GameScene implements SceneMethods{
         return game.getTileManager().getTile(id).getTileType();
     }
 
-    public TowerManager getTowerManager() {
-        return towerManager;
+    public FriendManager getFriendManager() {
+        return friendManager;
     }
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_ESCAPE){
-            selectedTower= null;
+            selectedFriendly = null;
         }
     }
 

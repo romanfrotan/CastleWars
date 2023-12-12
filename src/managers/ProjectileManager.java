@@ -4,7 +4,7 @@ import enemies.Enemy;
 import helperMethods.Constants;
 import helperMethods.LoadSave;
 import objects.Projectile;
-import objects.Tower;
+import objects.Friendly;
 import scenes.Playing;
 
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static helperMethods.Constants.Projectiles.*;
-import static helperMethods.Constants.Towers.*;
+import static helperMethods.Constants.Friends.*;
 
 public class ProjectileManager {
     private Playing playing;
@@ -62,7 +62,7 @@ public class ProjectileManager {
         return false;
     }
 
-    public void newProjectile (Tower t, Enemy e) {
+    public void newProjectile (Friendly t, Enemy e) {
         int type=getProjectileType(t);
 
         int xDistance= (int)(t.getX()-e.getX());
@@ -93,11 +93,11 @@ public class ProjectileManager {
 
     }
 
-    private int getProjectileType(Tower t) {
-        switch (t.getTowerType()) {
+    private int getProjectileType(Friendly t) {
+        switch (t.getFriendType()) {
             case ARCHER:
                 return ARROW;
-            case WIZARD:
+            case MAGE:
                 return SPELL;
             case ROUGE:
                 return BOOMERANG;

@@ -38,16 +38,12 @@ public void createWaves() {
                 int r1 = rand.nextInt(3);
                 int r2 = rand.nextInt(3);
                 int r3 = rand.nextInt(3);
-                waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(0,1,2,3))));
+                waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(r1,r2,r3,r1,0,1,r2,0,r3,r1))));
 
             }
         }
-
 }
 
-public ArrayList<Wave> getWaves () {
-        return waves;
-}
 
     public boolean isTimeForNewEnemy() {
             return enemySpawnTick >= enemySpawnTickLimit;

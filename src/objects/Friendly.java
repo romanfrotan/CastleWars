@@ -2,17 +2,17 @@ package objects;
 
 import helperMethods.Constants;
 
-public class Tower {
+public class Friendly {
 
-    private int x,y,id,towerType,damage;
+    private int x,y,id, friendType,damage;
     private float range,cooldown;
     private int cooldownTick;
 
-    public Tower(int x, int y, int id, int towerType) {
+    public Friendly(int x, int y, int id, int friendType){
         this.x = x;
         this.y = y;
         this.id = id;
-        this.towerType = towerType;
+        this.friendType = friendType;
         setDamage();
         setRange();
         setCooldown();
@@ -38,15 +38,15 @@ public class Tower {
 
 
     private void setCooldown() {
-        cooldown= Constants.Towers.getCooldown(towerType);
+        cooldown= Constants.Friends.getCooldown(friendType);
     }
 
     private void setRange() {
-        range= Constants.Towers.getRange(towerType);
+        range= Constants.Friends.getRange(friendType);
     }
 
     private void setDamage() {
-        damage=Constants.Towers.getDamage(towerType);
+        damage= Constants.Friends.getDamage(friendType);
     }
 
     public int getX() {
@@ -73,8 +73,8 @@ public class Tower {
         this.id = id;
     }
 
-    public int getTowerType() {
-        return towerType;
+    public int getFriendType() {
+        return friendType;
     }
 
     public int getDamage() {
