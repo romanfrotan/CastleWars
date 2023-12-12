@@ -98,9 +98,9 @@ public class ProjectileManager {
             case ARCHER:
                 return ARROW;
             case WIZARD:
-                return CHAINS;
-            case CANNON:
-                return BOMB;
+                return SPELL;
+            case ROUGE:
+                return BOOMERANG;
         }
         return 0;
     }

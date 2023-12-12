@@ -41,7 +41,7 @@ public void createWaves() {
                 int r1 = rand.nextInt(3);
                 int r2 = rand.nextInt(3);
                 int r3 = rand.nextInt(3);
-                waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(r1, r2, 1, r3, 0))));
+                waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(0,1,2,3))));
 
             }
         }

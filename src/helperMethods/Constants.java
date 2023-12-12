@@ -24,21 +24,22 @@ public class Constants {
 
     public static class Enemies {
 
-        public static final int ORC = 0;
-        public static final int BAT = 1;
-        public static final int KNIGHT = 2;
-        public static final int WOLF = 3;
+
+        public static final int GHOST = 0;
+        public static final int KNIGHT = 1;
+        public static final int GOBLIN = 2;
+        public static final int SKELETON = 3;
 
         public static float GetSpeed(int enemyType) {
             switch (enemyType) {
                 case KNIGHT:
-                    return .30f;
-                case BAT:
-                    return .70f;
-                case ORC:
+                    return .40f;
+                case GHOST:
+                    return .65f;
+                case SKELETON:
                     return .50f;
-                case WOLF:
-                    return .80f;
+                case GOBLIN:
+                    return .61f;
             }
             return 0;
         }
@@ -47,11 +48,11 @@ public class Constants {
             switch (enemyType) {
                 case KNIGHT:
                     return 230;
-                case BAT:
-                    return 55;
-                case ORC:
+                case GHOST:
+                    return 140;
+                case SKELETON:
                     return 150;
-                case WOLF:
+                case GOBLIN:
                     return 90;
             }
             return 0;
@@ -60,9 +61,9 @@ public class Constants {
 
     public static class Towers {
 
-        public static final int CANNON = 0;
-        public static final int ARCHER = 1;
-        public static final int WIZARD = 2;
+        public static final int ROUGE = 1;
+        public static final int ARCHER = 2;
+        public static final int WIZARD = 0;
 
         public static String getInfo(int towerType) {
             switch (towerType) {
@@ -70,7 +71,7 @@ public class Constants {
                     return "";
                 case WIZARD:
                     return "";
-                case CANNON:
+                case ROUGE:
                     return "";
             }
             return "";
@@ -79,11 +80,11 @@ public class Constants {
         public static int getDamage(int towerType) {
             switch (towerType) {
                 case ARCHER:
-                    return 4;
+                    return 12;
                 case WIZARD:
-                    return 8;
-                case CANNON:
-                    return 14;
+                    return 24;
+                case ROUGE:
+                    return 15;
             }
             return 0;
         }
@@ -91,10 +92,10 @@ public class Constants {
         public static float getRange(int towerType) {
             switch (towerType) {
                 case ARCHER:
-                    return 100;
+                    return 80;
                 case WIZARD:
-                    return 100;
-                case CANNON:
+                    return 120;
+                case ROUGE:
                     return 100;
             }
             return 0;
@@ -103,11 +104,11 @@ public class Constants {
         public static float getCooldown(int towerType) {
             switch (towerType) {
                 case ARCHER:
-                    return 10;
+                    return 13;
                 case WIZARD:
-                    return 10;
-                case CANNON:
-                    return 10;
+                    return 28;
+                case ROUGE:
+                    return 18;
             }
             return 0;
         }
@@ -115,18 +116,20 @@ public class Constants {
     }
 
     public static class Projectiles {
-        public static final int ARROW = 0;
-        public static final int BOMB = 2;
-        public static final int CHAINS = 1;
+        public static final int BOOMERANG = 0;
+        public static final int ARROW = 1;
+        public static final int SPELL = 2;
+
+
 
         public static float getSpeed(int type) {
 
             switch (type) {
-                case CHAINS:
+                case SPELL:
                     return 2f;
                 case ARROW:
                     return 3f;
-                case BOMB:
+                case BOOMERANG:
                     return 1f;
             }
             return 0f;

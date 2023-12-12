@@ -203,14 +203,14 @@ public class EnemyManager {
           int y = start.getyCord()*32;
         switch (enemyType) {
 
-            case ORC:
-                enemies.add(new Orc(x,y,0));
+            case SKELETON:
+                enemies.add(new Skeleton(x,y,0));
                 break;
-            case BAT:
-                enemies.add(new Bat(x,y,0));
+            case GHOST:
+                enemies.add(new Ghost(x,y,0));
                 break;
-            case WOLF:
-                enemies.add(new Wolf(x,y,0));
+            case GOBLIN:
+                enemies.add(new Goblin(x,y,0));
                 break;
             case KNIGHT:
                 enemies.add(new Knight(x,y,0));
